@@ -49,6 +49,11 @@ class Gruff::Line < Gruff::Base
     @reference_lines[:baseline] ||= Hash.new
     @reference_lines[:baseline][:value] = new_value
   end
+  
+  def baseline_dash=(new_value)
+    @reference_lines[:baseline] ||= Hash.new
+    @reference_lines[:baseline][:dash] = new_value
+  end
 
   def baseline_color
     if (@reference_lines.key?(:baseline))
@@ -164,7 +169,7 @@ class Gruff::Line < Gruff::Base
     @d = @d.push
     @d.stroke_color(reference_line[:color] || @reference_line_default_color)
     @d.fill_opacity 0.0
-    @d.stroke_dasharray(10, 20)
+    @d.stroke_dasharray(10, 20) if reference_line[:dash] == true
     @d.stroke_width(reference_line[:width] || @reference_line_default_width)
     @d.line(left, top, right, bottom)
     @d = @d.pop
